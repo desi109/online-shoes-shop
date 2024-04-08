@@ -1,0 +1,5 @@
+.nav-link {
+    display: flex;
+    padding: 0.5rem 1rem;
+    align-items: baseline;
+  }
