@@ -1,0 +1,34 @@
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+      <a routerLink="/home" class="w3-bar-item w3-button"><b>Shoes</b> World</a>
+      <!-- Float links to the right. Hide them on small screens -->
+      <div style="display: flex; justify-content: flex-end">
+        <a routerLink="/category/0" class="w3-bar-item w3-button">Man</a>
+        <a routerLink="/category/1" class="w3-bar-item w3-button">Woman</a>
+        <ng-template #noUser>
+          <div class="w3-dropdown-hover w3-right">
+            <button class="w3-button">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </button>
+            <div
+              class="w3-dropdown-content w3-bar-block w3-border"
+              style="right: 0"
+            >
+              <a
+                class="nav-item nav-link w3-bar-item w3-button"
+                routerLink="/login"
+              >
+                Sign In
+              </a>
+              <a
+                class="nav-item nav-link w3-bar-item w3-button"
+                routerLink="/register"
+              >
+                Sign Up
+              </a>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
