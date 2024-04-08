@@ -1,0 +1,47 @@
+# Docker Compose file Reference (https://github.com/compose-spec/compose-spec/blob/master/03-compose-file.md)
+version: '3'
+
+services:
+
+  # PostgreSQL Database for the application
+  postgres:
+    image: "postgres:9.6-alpine"
+    container_name: postgres
+    # Volume mounted for database for the storage
+    volumes:
+      - data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432 # Forward the exposed port 5432 on the container to port 5432 on the host machine
+    # Environment variable for DB name, user and password
+    environment:
+      - POSTGRES_DB=shop
+      - POSTGRES_USER=shop
+      - POSTGRES_PASSWORD=shop
+
+  # Back-end Spring Boot Application
+  backend:
+    build: ./backend
+    container_name: backend
+    environment:
+      - DB_SERVER=postgres
+      - POSTGRES_DB=shop
+      - POSTGRES_USER=shop
+      - POSTGRES_PASSWORD=shop
+    ports:
+      - 8080:8080
+    links:
+      - postgres
+
+  # Front-end Angular Application
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - 4200:80
+    links:
+      - backend
+
+# Volumes for DB data
+volumes:
+  data:
+
