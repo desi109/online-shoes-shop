@@ -1,2 +1,2 @@
-# online-shoes-shop
-Online Shoes Shop
+# test-online-shoes-shop
+TEST online-shoes-shop
