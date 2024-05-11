@@ -6,6 +6,7 @@
     <p>
       <a routerLink="/seller/product/add"
         class="w3-button w3-black w3-padding-large w3-large"
+        *ngIf="currentUser?.role == Role.Manager"
         >ADD NEW PRODUCT</a
       >
     </p>

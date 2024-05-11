@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 
 import { apiUrl } from "../../environments/environment";
 import { CookieService } from "ngx-cookie-service";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, empty, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { UserService } from "./user.service";
 import { Cart } from "../models/Cart";
@@ -73,16 +73,12 @@ export class CartService {
   }
 
   addItem(productInOrder, productSize): Observable<boolean> {
-    if (!this.currentUser) {
-      this.router.navigate(["/register"]);
-    } else {
       const url = `${this.cartUrl}/add`;
       return this.http.post<boolean>(url, {
         quantity: productInOrder.count,
         productId: productInOrder.productId,
         productSize: productSize,
       });
-    }
   }
 
   update(productInOrder): Observable<ProductInOrder> {

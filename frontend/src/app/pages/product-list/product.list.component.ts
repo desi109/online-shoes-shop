@@ -34,6 +34,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.querySub = this.route.queryParams.subscribe(() => {
             this.update();
         });
+
+        this.currentUser = this.userService.currentUserValue;
     }
 
     ngOnDestroy(): void {
