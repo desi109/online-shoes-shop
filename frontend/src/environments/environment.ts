@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    scrumAppUrl: 'http://localhost:8080'
-  };
+  production: false
+};
+export const apiUrl = '//localhost:8080/api';

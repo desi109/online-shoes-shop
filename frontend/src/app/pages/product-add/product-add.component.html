@@ -1,0 +1,144 @@
+<h1 class="display-4 mt-5 text-center">Add New Product</h1>
+<div style="width: 40%; margin: 25px auto;">
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <!-- Product Code -->
+    <div class="form-group">
+      <label for="productId">Code</label>
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        id="productId"
+        name="productId"
+        [(ngModel)]="product.productId"
+        required
+        placeholder="Enter product code"
+      />
+      <div *ngIf="form.submitted && form.controls['productId']?.invalid">
+        <span class="text-danger">Product code is required.</span>
+      </div>
+    </div>
+
+    <!-- Product Photo Link -->
+    <div class="form-group">
+      <label for="productIcon">Photo Link</label>
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        id="productIcon"
+        name="productIcon"
+        [(ngModel)]="product.productIcon"
+        placeholder="Enter URL for product photo"
+      />
+    </div>
+
+    <!-- Product Name -->
+    <div class="form-group">
+      <label for="productName">Name</label>
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        id="productName"
+        name="productName"
+        [(ngModel)]="product.productName"
+        required
+        placeholder="Enter product name"
+      />
+      <div *ngIf="form.submitted && form.controls['productName']?.invalid">
+        <span class="text-danger">Product name is required.</span>
+      </div>
+    </div>
+
+    <!-- Product Category -->
+    <div class="form-group">
+      <label for="productCategory">Category</label>
+      <select
+        class="form-control form-control-lg"
+        id="productCategory"
+        name="productCategory"
+        [(ngModel)]="product.categoryType"
+        required
+      >
+        <option value="0">Man</option>
+        <option value="1">Woman</option>
+      </select>
+      <div *ngIf="form.submitted && form.controls['productCategory']?.invalid">
+        <span class="text-danger">Category is required.</span>
+      </div>
+    </div>
+
+    <!-- Product Description -->
+    <div class="form-group">
+      <label for="productDescription">Description</label>
+      <textarea
+        class="form-control form-control-lg"
+        id="productDescription"
+        name="productDescription"
+        [(ngModel)]="product.productDescription"
+        placeholder="Enter product description"
+      ></textarea>
+    </div>
+
+    <!-- Product Price -->
+    <div class="form-group">
+      <label for="productPrice">Price</label>
+      <input
+        type="number"
+        class="form-control form-control-lg"
+        id="productPrice"
+        name="productPrice"
+        [(ngModel)]="product.productPrice"
+        required
+        min="0"  
+      />
+      <div *ngIf="form.submitted && form.controls['productPrice']?.invalid">
+        <span class="text-danger">Product price is required.</span>
+      </div>
+    </div>
+
+    <!-- Product Stock -->
+    <div class="form-group">
+      <label for="productStock">Stock</label>
+      <input
+        type="number"
+        class="form-control form-control-lg"
+        id="productStock"
+        name="productStock"
+        [(ngModel)]="product.productStock"
+        required
+        min="0"  
+      />
+      <div *ngIf="form.submitted && form.controls['productStock']?.invalid">
+        <span class="text-danger">Product stock is required.</span>
+      </div>
+    </div>
+
+    <!-- Product Status -->
+    <div class="form-group">
+      <label for="productStatus">Status</label>
+      <select
+        class="form-control form-control-lg"
+        id="productStatus"
+        name="productStatus"
+        [(ngModel)]="product.productStatus"
+        required
+      >
+        <option value="0">Available</option>
+        <option value="1">Unavailable</option>
+      </select>
+      <div *ngIf="form.submitted && form.controls['productStatus']?.invalid">
+        <span class="text-danger">Status is required.</span>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group">
+      <button
+        type="submit"
+        class="btn btn-lg btn-primary btn-block"
+        [disabled]="!form.form.valid" 
+      >
+        Add Product
+      </button>
+    </div>
+  </form>
+</div>

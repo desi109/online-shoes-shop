@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
-    scrumAppUrl: '/api'
-  };
+  production: true
+};
+export const apiUrl = '/api';
