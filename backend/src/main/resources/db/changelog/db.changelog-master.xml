@@ -7,12 +7,19 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="1" author="Wojtek">
-        <sqlFile path="01_init_test_table.sql"
+        <sqlFile path="01_create_tables.sql"
                  relativeToChangelogFile="true"
                  splitStatements="true"
                  stripComments="true"/>
+        <comment>Create tables</comment>
+    </changeSet>
 
-        <comment>Create TEST table</comment>
+    <changeSet id="2" author="Wojtek">
+        <sqlFile path="02_insert_data.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <comment>Insert data</comment>
     </changeSet>
 
 </databaseChangeLog>
