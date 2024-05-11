@@ -1,26 +1,56 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { CommonModule } from '@angular/common';
+import { AppComponent } from "./app.component";
+import { NavigationComponent } from "./parts/navigation/navigation.component";
+import { CardComponent } from "./pages/card/card.component";
+import { PaginationComponent } from "./parts/pagination/pagination.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { FooterComponent } from './parts/footer/footer.component';
-import { NavigationComponent } from './parts/navigation/navigation.component';
-import { PaginationComponent } from './parts/pagination/pagination.component';
+import { LoginComponent } from "./pages/login/login.component";
+import { SignupComponent } from "./pages/signup/signup.component";
+import { DetailComponent } from "./pages/product-detail/detail.component";
+import { FormsModule } from "@angular/forms";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { CartComponent } from "./pages/cart/cart.component";
+import { CookieService } from "ngx-cookie-service";
+import { ErrorInterceptor } from "./_interceptors/error-interceptor.service";
+import { JwtInterceptor } from "./_interceptors/jwt-interceptor.service";
+import { OrderComponent } from "./pages/order/order.component";
+import { OrderDetailComponent } from "./pages/order-detail/order-detail.component";
+import { ProductListComponent } from "./pages/product-list/product.list.component";
+import { UserDetailComponent } from "./pages/user-edit/user-detail.component";
+import { ProductEditComponent } from "./pages/product-edit/product-edit.component";
+import { ProductAddComponent } from "./pages/product-add/product-add.component";
+import { FooterComponent } from "./parts/footer/footer.component";
 import { HomeComponent } from './pages/home/home.component';
+import { ProductItemCardComponent } from './pages/product-item-card/product-item-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     NavigationComponent,
+    CardComponent,
     PaginationComponent,
-    HomeComponent
+    LoginComponent,
+    SignupComponent,
+    DetailComponent,
+    CartComponent,
+    OrderComponent,
+    OrderDetailComponent,
+    ProductListComponent,
+    UserDetailComponent,
+    ProductEditComponent,
+    ProductAddComponent,
+    FooterComponent,
+    HomeComponent,
+    ProductItemCardComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
+  imports: [BrowserModule, AppRoutingModule, CommonModule, FormsModule, HttpClientModule],
+  providers: [
+    CookieService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

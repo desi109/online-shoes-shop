@@ -3,32 +3,46 @@
       <a routerLink="/home" class="w3-bar-item w3-button"><b>Shoes</b> World</a>
       <!-- Float links to the right. Hide them on small screens -->
       <div style="display: flex; justify-content: flex-end">
-        <a routerLink="/category/0" class="w3-bar-item w3-button">Man</a>
-        <a routerLink="/category/1" class="w3-bar-item w3-button">Woman</a>
+  
+        <ng-container *ngIf="currentUser; else noUser">
+          <a *ngIf="currentUser.role == Role.Customer" 
+          routerLink="/category/0" class="w3-bar-item w3-button">
+            Man
+          </a>
+
+          <a *ngIf="currentUser.role == Role.Customer" 
+          routerLink="/category/1" class="w3-bar-item w3-button">
+            Woman
+          </a>
+
+          <a *ngIf="currentUser.role == Role.Manager || currentUser.role ==  Role.Employee" 
+          routerLink="/seller" class="w3-bar-item w3-button">
+            Products
+          </a>
+
+          <a *ngIf="!currentUser || currentUser.role == Role.Customer"
+        class="nav-item nav-link " routerLink="/cart">
+            <i class="fas fa-shopping-cart"></i>
+              Cart
+        </a>
+          <a class="nav-item nav-link " routerLink="/order">
+              <i class="fas fa-list-ul"></i>
+              Orders
+          </a>
+          <a class="nav-item nav-link " routerLink="/profile">
+              {{name}}
+          </a>
+          <a class="nav-item nav-link " (click)="logout()" routerLink="/login" [queryParams]="{logout: true}">
+              Sign Out
+          </a>
+        </ng-container>
         <ng-template #noUser>
-          <div class="w3-dropdown-hover w3-right">
-            <button class="w3-button">
-              <i class="fa fa-user" aria-hidden="true"></i>
-            </button>
-            <div
-              class="w3-dropdown-content w3-bar-block w3-border"
-              style="right: 0"
-            >
-              <a
-                class="nav-item nav-link w3-bar-item w3-button"
-                routerLink="/login"
-              >
-                Sign In
-              </a>
-              <a
-                class="nav-item nav-link w3-bar-item w3-button"
-                routerLink="/register"
-              >
-                Sign Up
-              </a>
-            </div>
-          </div>
+          <a routerLink="/category/0" class="w3-bar-item w3-button">Man</a>
+          <a routerLink="/category/1" class="w3-bar-item w3-button">Woman</a>
+          <a class="nav-item nav-link " routerLink="/login">Sign In</a>
+          <a class="nav-item nav-link " routerLink="/register">Sign Up</a>
         </ng-template>
+
       </div>
     </div>
   </div>
