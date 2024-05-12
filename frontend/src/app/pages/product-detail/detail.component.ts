@@ -5,6 +5,8 @@ import {CartService} from '../../services/cart.service';
 import {CookieService} from 'ngx-cookie-service';
 import {ProductInOrder} from '../../models/ProductInOrder';
 import {ProductInfo} from '../../models/productInfo';
+import { UserService } from 'src/app/services/user.service';
+import { JwtResponse } from 'src/app/response/JwtResponse';
 
 @Component({
   selector: 'app-detail',
@@ -16,15 +18,17 @@ export class DetailComponent implements OnInit {
   count: number;
   productInfo: ProductInfo;
   selectedSize: number | null = null;  // Variable to track selected size
-
+  private currentUser: JwtResponse;
 
   constructor(
       private productService: ProductService,
       private cartService: CartService,
       private cookieService: CookieService,
       private route: ActivatedRoute,
-      private router: Router
+      private router: Router,
+      private userService: UserService
   ) {
+    this.userService.currentUser.subscribe((user) => (this.currentUser = user));
   }
 
   ngOnInit() {
@@ -36,15 +40,6 @@ export class DetailComponent implements OnInit {
   selectSize(size: number) {
     this.selectedSize = size;  // Update the selected size when a button is clicked
   }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-  //   // Add '${implements OnChanges}' to the class.
-  //   console.log(changes);
-  //   if (this.item.quantity in changes) {
-
-  //   }
-  // }
 
   getProduct(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -62,8 +57,10 @@ export class DetailComponent implements OnInit {
       return;
     } else {
       // Add to cart logic goes here
+      if (!this.currentUser) {
+        this.router.navigate(["/login"]);
+      } else {
       console.log('Product added to cart with size:', this.selectedSize);
-
       this.cartService
         .addItem(new ProductInOrder(this.productInfo, this.count), this.selectedSize)
         .subscribe(
@@ -76,6 +73,7 @@ export class DetailComponent implements OnInit {
             },
             _ => console.log('Add Cart Failed')
         );
+      }
     }
   }
 

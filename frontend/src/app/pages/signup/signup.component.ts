@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
   }
   onSubmit() {
     this.userService.signUp(this.user).subscribe(u => {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     },
         e => {});
   }
