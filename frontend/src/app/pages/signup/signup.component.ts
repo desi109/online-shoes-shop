@@ -3,6 +3,7 @@ import {Location} from '@angular/common';
 import {User} from "../../models/User";
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import { concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -24,13 +25,25 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
 
-
   }
   onSubmit() {
-    this.userService.signUp(this.user).subscribe(u => {
-      this.router.navigate(['/home']);
-    },
-        e => {});
+    this.userService.signUp(this.user).pipe(
+      concatMap(u => {
+        let loginForm = {
+          username: this.user.email,
+          password: this.user.password,
+          remembered: false
+        };
+        return this.userService.login(loginForm);
+      })
+    ).subscribe(
+      res => {
+        this.router.navigate(['/home']);
+      },
+      error => {
+        console.log(error)
+      }
+    );
   }
 
 }
